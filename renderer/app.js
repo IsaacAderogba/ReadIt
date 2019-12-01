@@ -9,20 +9,37 @@ let addItem = document.getElementById("add-item");
 let itemURL = document.getElementById("url");
 let search = document.getElementById("search");
 
+// globals
+window.newItem = () => showModal.click();
+window.openItem = items.open;
+window.deleteItem = () => {
+  let selectedItem = items.getSelectedItem();
+  items.delete(selectedItem.index);
+};
+
+window.openItemNative = items.openNative;
+
+// focus to search items
+window.searchItems = () => {
+  search.focus();
+};
+
 // Filter items with "search"
 search.addEventListener("keyup", event => {
   Array.from(document.getElementsByClassName("read-item")).forEach(item => {
-    let hasMatch = item.innerText.toLowerCase().includes(search.value.toLowerCase());
+    let hasMatch = item.innerText
+      .toLowerCase()
+      .includes(search.value.toLowerCase());
     item.style.display = hasMatch ? "flex" : "none";
   });
 });
 
 // navigate item selection with up/down arrows
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", event => {
   if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-    items.changeSelection(event.key)
+    items.changeSelection(event.key);
   }
-})
+});
 
 // toggle button
 const toggleModalButtons = () => {

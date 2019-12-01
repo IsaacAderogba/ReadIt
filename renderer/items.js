@@ -1,3 +1,4 @@
+const { shell } = require("electron");
 const fs = require("fs");
 
 let items = document.getElementById("items");
@@ -18,7 +19,7 @@ window.addEventListener("message", event => {
 });
 
 exports.delete = itemIndex => {
-  console.log(itemIndex)
+  console.log(itemIndex);
   // remove item from DOM
   items.removeChild(items.childNodes[itemIndex]);
 
@@ -109,6 +110,15 @@ exports.open = () => {
 
   // inject javascript
   readerWin.eval(readerJS.replace("{{index}}", selectedItem.index));
+};
+
+exports.openNative = () => {
+  if (!this.storage.length) return;
+
+  let selectedItem = this.getSelectedItem();
+
+  // open in browser
+  shell.openExternal(selectedItem.node.dataset.url);
 };
 
 exports.addItem = (item, isNew = false) => {
