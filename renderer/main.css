@@ -101,9 +101,19 @@ main {
   display: flex;
   align-items: center;
   align-content: center;
-  border-bottom: lightgrey 2px solid;
+  border-bottom: lightgray 2px solid;
   background: #FAFAFA;
   padding: 10px;
+  border-left: 10px solid lightgray;
+  -webkit-user-select: none;
+}
+
+.read-item:hover {
+  background-color: #EEE;
+}
+
+.read-item.selected {
+  border-left-color: dodgerblue;
 }
 
 .read-item img {
