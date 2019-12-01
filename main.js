@@ -1,7 +1,17 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const windowStateKeeper = require("electron-window-state");
 
 let mainWindow;
+
+// Listen for new item request
+ipcMain.on("new-item", (event, itemURL) => {
+  console.log(itemURL);
+
+  // get new item and send back to renderer
+  setTimeout(() => {
+    event.sender.send("new-item-success", "Item");
+  }, 2000);
+});
 
 function createWindow() {
   // configure state keeper
@@ -22,12 +32,12 @@ function createWindow() {
   });
 
   // tell window state keeper which state to manage
-  mainWindowState.manage(mainWindow)
+  mainWindowState.manage(mainWindow);
 
   // load the file into the browser window
   mainWindow.loadFile("renderer/main.html");
 
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   mainWindow.on("closed", () => {
     mainWindow = null;
