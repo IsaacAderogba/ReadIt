@@ -1,18 +1,33 @@
 const { app, BrowserWindow } = require("electron");
+const windowStateKeeper = require("electron-window-state");
 
 let mainWindow;
 
 function createWindow() {
+  // configure state keeper
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 500,
+    defaultHeight: 650
+  });
+
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 800,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    minWidth: 350,
+    maxWidth: 500,
+    minHeight: 300,
     webPreferences: { nodeIntegration: true }
   });
+
+  // tell window state keeper which state to manage
+  mainWindowState.manage(mainWindow)
 
   // load the file into the browser window
   mainWindow.loadFile("renderer/main.html");
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.on("closed", () => {
     mainWindow = null;
