@@ -38,8 +38,6 @@ function createWindow() {
   // load the file into the browser window
   mainWindow.loadFile("renderer/main.html");
 
-  mainWindow.webContents.openDevTools();
-
   mainWindow.on("closed", () => {
     mainWindow = null;
   });

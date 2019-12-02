@@ -1,19 +1,40 @@
 {
   "name": "readit",
   "version": "1.0.0",
-  "description": "",
+  "description": "Readit app",
   "main": "main.js",
   "scripts": {
     "state": "electron .",
     "watch": "nodemon --exec 'electron .'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder --help"
   },
   "keywords": [],
-  "author": "",
+  "author": "Isaac Aderogba",
   "license": "ISC",
   "dependencies": {
-    "electron": "^7.1.2",
     "electron-window-state": "^5.0.3",
     "nodemon": "^2.0.1"
+  },
+  "devDependencies": {
+    "electron": "^7.1.2",
+    "electron-builder": "^21.2.0"
+  },
+  "build": {
+    "appId": "com.isaacaderogba.readit",
+    "copyright": "Copyright 2019 IsaacAderogba",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg"
+    },
+    "win": {
+      "target": "zip",
+      "certificateFile": "private/IsaacAderogbaMacCertificate.p12",
+      "certificatePassword": "",
+      "verifyUpdateCodeSignature": false
+    },
+    "linux": {
+      "category": "Utility"
+    }
   }
 }
